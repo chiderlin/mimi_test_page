@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貓咪寫真集</title>
+<link href="index.css" rel="stylesheet" type="text/css" media="all"></link>
+<script type="text/javascript">
+
+// 上方 event 特效
+window.onload=function(){
+	var page=changeBackgroundColor("page");
+	var about=changeBackgroundColor("about");
+	var product=changeBackgroundColor("product");
+	var contact=changeBackgroundColor("contact");
+	var loadpage=getAjax("page");
+};
+// 上方 event 特效
+function changeBackgroundColor(e){
+	var element=document.getElementById(e);
+	element.addEventListener("mouseover", function(){
+		this.style.backgroundColor="#D8D8EB";
+	});
+	element.addEventListener("mouseout", function(){
+		this.style.backgroundColor="white";
+	});
+};	
+
+// buerger anima
+function xicon(x){
+	x.classList.toggle("change");
+	// document.getElementById("slide").style.height="144px";
+	var box=document.getElementById("slide");
+	var styles=window.getComputedStyle(box);
+	var height=styles.getPropertyValue("height");
+	height=parseInt(height);
+
+	if(height==0){
+		var slideId=window.setInterval(function(){
+			if(height==144){
+				window.clearInterval(slideId);
+				return;
+			};
+			height+=2;
+			box.style.height=height+"px";
+		}, 2);
+	}else if(height=144){
+		var slideId=window.setInterval(function(){
+			if(height==0){
+				window.clearInterval(slideId);
+				return;
+			};
+			height-=2;
+			box.style.height=height+"px";
+		}, 2);
+	}
+}
+
+// Ajax
+function getAjax(pageName){
+	var req= new XMLHttpRequest();
+	req.open("get", "http://127.0.0.1:8888/"+pageName+".html");
+	req.onload=function(){
+		var content=document.getElementById("content");
+		// alert(this.responseText);
+		content.innerHTML=this.responseText;
+	}
+	
+	req.send();
+}
+
+</script>
+</head>
+<body>
+	<nav>
+		<div class="title"><a href="#">貓咪寫真集網站</a></div>
+		<div class="blank"></div>
+		<label for="burger" class="mouse" >
+			<div class="click" onclick="xicon(this);">
+				<div class="bar1"></div>
+				<div class="bar2"></div>
+				<div class="bar3"></div>
+			</div>
+			<!-- <img class="burger" src="pic/burger.png" alt=""> -->
+		</label>
+		<input type="checkbox" id="burger">
+		
+		<ul id="slide">
+			<li onclick="getAjax('page');"><a href="#page">首頁</a></li>
+			<li onclick="getAjax('about');"><a href="#about" >關於我們</a></li>
+			<li onclick="getAjax('product');"><a href="#product">產品類別</a></li>
+			<li onclick="getAjax('contact');"><a href="#contact">聯絡我們</a></li>
+		</ul>
+		<div onclick="getAjax('page');" class="menu" id="page"><a href="#page">首頁</a></div>
+		<div onclick="getAjax('about');" class="menu" id="about"><a href="#about">關於我們</a></div>
+		<div onclick="getAjax('product');" class="menu" id="product"><a href="#product">產品類別</a></div>
+		<div onclick="getAjax('contact');" class="menu" id="contact"><a href="#contact">聯絡我們</a></div>
+		
+	</nav>
+	<header>
+		<p>Welcome To Mywebsite</p>
+	</header>
+	<main id="content">
+	</main>
+	<footer>
+		<p>Copyright© Chi 2021</p>
+	</footer>
+</body>
+</html>
