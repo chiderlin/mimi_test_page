@@ -54,7 +54,7 @@ li:hover{
 }
 
 header{
-	margin-top:50px;
+	margin-top:50px; /* 這裡要設定50，nav部分才會往下移動，紫色範圍才會正常*/
 	height:300px;
 	background-color:#8080C0;
 	display:flex;
